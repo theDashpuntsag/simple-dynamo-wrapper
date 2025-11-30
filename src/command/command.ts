@@ -1,10 +1,9 @@
-import { DescribeTableCommand, DescribeTableCommandOutput } from '@aws-sdk/client-dynamodb';
+import { DescribeTableCommandOutput } from '@aws-sdk/client-dynamodb';
 import { docClient } from './dynamo-client';
 import {
   CustomGetCommandInput,
   CustomPutCommandInput,
   CustomQueryCommandInput,
-  CustomQueryCommandOutput,
   CustomUpdateCommandInput,
 } from '../types/command.types';
 import { GetCommandOutput, PutCommandOutput, QueryCommandOutput, UpdateCommandOutput } from '@aws-sdk/lib-dynamodb';
@@ -32,6 +31,7 @@ import { GetCommandOutput, PutCommandOutput, QueryCommandOutput, UpdateCommandOu
  */
 export async function getDynamoTableDescription(tableName: string): Promise<DescribeTableCommandOutput> {
   try {
+    const { DescribeTableCommand } = await import('@aws-sdk/client-dynamodb');
     return await docClient.send(new DescribeTableCommand({ TableName: tableName }));
   } catch (error: unknown) {
     console.error(`Error getting table description for ${tableName}:`, error);

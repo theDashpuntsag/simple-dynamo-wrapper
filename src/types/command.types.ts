@@ -31,35 +31,6 @@ export const customQueryCommandInputSchema = z.object({
 
 export type CustomQueryCommandInput = z.infer<typeof customQueryCommandInputSchema>;
 
-export const customQueryCommandOutputSchema = <T extends z.ZodTypeAny>(itemSchema: T) =>
-  z.object({
-    items: z.array(itemSchema).optional(),
-    count: z.number().optional(),
-    scannedCount: z.number().optional(),
-    lastEvaluatedKey: z.record(z.string(), z.unknown()).optional(),
-    consumedCapacity: z
-      .object({
-        TableName: z.string().optional(),
-        CapacityUnits: z.number().optional(),
-        ReadCapacityUnits: z.number().optional(),
-        WriteCapacityUnits: z.number().optional(),
-      })
-      .optional(),
-  });
-
-export type CustomQueryCommandOutput<T> = {
-  items?: T[];
-  count?: number;
-  scannedCount?: number;
-  lastEvaluatedKey?: Record<string, unknown>;
-  consumedCapacity?: {
-    TableName?: string;
-    CapacityUnits?: number;
-    ReadCapacityUnits?: number;
-    WriteCapacityUnits?: number;
-  };
-};
-
 export const customPutCommandInputSchema = z.object({
   tableName: z.string(),
   item: z.record(z.string(), z.unknown()),
