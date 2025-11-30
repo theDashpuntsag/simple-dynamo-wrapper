@@ -1,0 +1,91 @@
+import { z } from 'zod';
+import { dynamoQueryRequestSchema } from './dynamo-query-request.types';
+
+const returnConsumedCapacityOptionsSchema = z.enum(['INDEXES', 'TOTAL', 'NONE']);
+const returnItemCollectionMetricsOptionsSchema = z.enum(['SIZE', 'NONE']);
+
+export const customGetCommandInputSchema = z.object({
+  tableName: z.string(),
+  key: z.record(z.string(), z.unknown()),
+  projectionExpression: z.string().optional(),
+  expressionAttributeNames: z.record(z.string(), z.string()).optional(),
+  consistentRead: z.boolean().optional(),
+  returnConsumedCapacity: returnConsumedCapacityOptionsSchema.optional(),
+});
+
+export type CustomGetCommandInput = z.infer<typeof customGetCommandInputSchema>;
+
+export const customQueryCommandInputSchema = z.object({
+  tableName: z.string(),
+  queryRequest: dynamoQueryRequestSchema,
+  keyConditionExpression: z.string().optional(),
+  filterExpression: z.string().optional(),
+  expressionAttributeNames: z.record(z.string(), z.string()).optional(),
+  expressionAttributeValues: z.record(z.string(), z.unknown()).optional(),
+  extraExpAttributeNames: z.record(z.string(), z.string()).optional(),
+  extraExpAttributeValues: z.record(z.string(), z.unknown()).optional(),
+  projectionExpression: z.string().optional(),
+  scanIndexForward: z.boolean().optional(),
+  returnConsumedCapacity: returnConsumedCapacityOptionsSchema.optional(),
+});
+
+export type CustomQueryCommandInput = z.infer<typeof customQueryCommandInputSchema>;
+
+export const customQueryCommandOutputSchema = <T extends z.ZodTypeAny>(itemSchema: T) =>
+  z.object({
+    items: z.array(itemSchema).optional(),
+    count: z.number().optional(),
+    scannedCount: z.number().optional(),
+    lastEvaluatedKey: z.record(z.string(), z.unknown()).optional(),
+    consumedCapacity: z
+      .object({
+        TableName: z.string().optional(),
+        CapacityUnits: z.number().optional(),
+        ReadCapacityUnits: z.number().optional(),
+        WriteCapacityUnits: z.number().optional(),
+      })
+      .optional(),
+  });
+
+export type CustomQueryCommandOutput<T> = {
+  items?: T[];
+  count?: number;
+  scannedCount?: number;
+  lastEvaluatedKey?: Record<string, unknown>;
+  consumedCapacity?: {
+    TableName?: string;
+    CapacityUnits?: number;
+    ReadCapacityUnits?: number;
+    WriteCapacityUnits?: number;
+  };
+};
+
+export const customPutCommandInputSchema = z.object({
+  tableName: z.string(),
+  item: z.record(z.string(), z.unknown()),
+  conditionExpression: z.string().optional(),
+  expressionAttributeNames: z.record(z.string(), z.unknown()).optional(),
+  expressionAttributeValues: z.record(z.string(), z.unknown()).optional(),
+  returnValues: z.enum(['NONE', 'ALL_OLD', 'UPDATED_OLD', 'ALL_NEW', 'UPDATED_NEW']).optional(),
+  returnConsumedCapacity: returnConsumedCapacityOptionsSchema.optional(),
+  returnItemCollectionMetrics: returnItemCollectionMetricsOptionsSchema.optional(),
+});
+
+export type CustomPutCommandInput = z.infer<typeof customPutCommandInputSchema>;
+
+export const customUpdateCommandInputSchema = z.object({
+  tableName: z.string(),
+  key: z.record(z.string(), z.unknown()),
+  item: z.record(z.string(), z.unknown()).optional(),
+  updateExpression: z.string().optional(),
+  conditionExpression: z.string().optional(),
+  expressionAttributeNames: z.record(z.string(), z.string()).optional(), // Overwrite ExpressionAttributeNames
+  expressionAttributeValues: z.record(z.string(), z.unknown()).optional(), // Overwrite ExpressionAttributeValues
+  extraExpAttributeNameKeys: z.string().optional(), // Add ExpressionAttributeNames without overwriting existing ones
+  extraExpAttributeValKeys: z.string().optional(), // Add ExpressionAttributeValues without overwriting existing ones
+  returnValues: z.enum(['NONE', 'ALL_OLD', 'UPDATED_OLD', 'ALL_NEW', 'UPDATED_NEW']).optional(),
+  returnConsumedCapacity: returnConsumedCapacityOptionsSchema.optional(),
+  returnItemCollectionMetrics: returnItemCollectionMetricsOptionsSchema.optional(),
+});
+
+export type CustomUpdateCommandInput = z.infer<typeof customUpdateCommandInputSchema>;

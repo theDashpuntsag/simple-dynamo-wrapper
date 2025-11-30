@@ -1,1 +1,1 @@
-# simple-dynamo-wrapper
+# Simple dynamo wrapper
