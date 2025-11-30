@@ -1,0 +1,6 @@
+pnpm install
+pnpm run format
+git add .
+pnpm run format:check
+pnpm run lint:fix
+pnpm run build

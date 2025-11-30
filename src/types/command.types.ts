@@ -35,7 +35,7 @@ export const customPutCommandInputSchema = z.object({
   tableName: z.string(),
   item: z.record(z.string(), z.unknown()),
   conditionExpression: z.string().optional(),
-  expressionAttributeNames: z.record(z.string(), z.unknown()).optional(),
+  expressionAttributeNames: z.record(z.string(), z.string()).optional(),
   expressionAttributeValues: z.record(z.string(), z.unknown()).optional(),
   returnValues: z.enum(['NONE', 'ALL_OLD', 'UPDATED_OLD', 'ALL_NEW', 'UPDATED_NEW']).optional(),
   returnConsumedCapacity: returnConsumedCapacityOptionsSchema.optional(),
@@ -52,8 +52,8 @@ export const customUpdateCommandInputSchema = z.object({
   conditionExpression: z.string().optional(),
   expressionAttributeNames: z.record(z.string(), z.string()).optional(), // Overwrite ExpressionAttributeNames
   expressionAttributeValues: z.record(z.string(), z.unknown()).optional(), // Overwrite ExpressionAttributeValues
-  extraExpAttributeNameKeys: z.string().optional(), // Add ExpressionAttributeNames without overwriting existing ones
-  extraExpAttributeValKeys: z.string().optional(), // Add ExpressionAttributeValues without overwriting existing ones
+  extraExpAttributeNames: z.record(z.string(), z.string()).optional(), // Add ExpressionAttributeNames without overwriting existing ones
+  extraExpAttributeValues: z.record(z.string(), z.unknown()).optional(), // Add ExpressionAttributeValues without overwriting existing ones
   returnValues: z.enum(['NONE', 'ALL_OLD', 'UPDATED_OLD', 'ALL_NEW', 'UPDATED_NEW']).optional(),
   returnConsumedCapacity: returnConsumedCapacityOptionsSchema.optional(),
   returnItemCollectionMetrics: returnItemCollectionMetricsOptionsSchema.optional(),

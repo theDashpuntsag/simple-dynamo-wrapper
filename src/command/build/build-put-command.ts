@@ -25,7 +25,7 @@ import { extractExpAttributeNamesFromExpression } from '../../utils';
  * @param input - The higher-level input for building the PutCommand.
  * @returns The constructed {@link PutCommandInput}.
  */
-export function buildPutCommandInput<T>(input: CustomPutCommandInput<T>): PutCommandInput {
+export function buildPutCommandInput(input: CustomPutCommandInput): PutCommandInput {
   const {
     tableName,
     item,
