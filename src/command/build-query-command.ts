@@ -1,11 +1,11 @@
 import { QueryCommandInput } from '@aws-sdk/lib-dynamodb';
-import { CustomQueryCommandInput } from '../../types';
+import { CustomQueryCommandInput } from '../types';
 import {
   createKeyConditionExpression,
   extractExpAttributeNamesFromExpression,
   replaceReservedKeywordsFromProjection,
   parseDynamoKeyValue,
-} from '../../utils';
+} from '../utils';
 
 /**
  * Build a DynamoDB {@link QueryCommandInput} from a structured input shape.

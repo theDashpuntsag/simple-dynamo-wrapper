@@ -1,6 +1,6 @@
 {
   "name": "simple-dynamo-wrapper",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "A simple and intuitive wrapper for AWS DynamoDB operations",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

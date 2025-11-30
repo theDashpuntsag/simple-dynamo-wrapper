@@ -1,6 +1,6 @@
 import { PutCommandInput } from '@aws-sdk/lib-dynamodb';
-import { CustomPutCommandInput } from '../../types';
-import { extractExpAttributeNamesFromExpression } from '../../utils';
+import { CustomPutCommandInput } from '../types';
+import { extractExpAttributeNamesFromExpression } from '../utils';
 
 /**
  * Build a DynamoDB {@link PutCommandInput} from a higher-level input shape.

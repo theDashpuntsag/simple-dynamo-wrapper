@@ -1,6 +1,6 @@
 import type { UpdateCommandInput } from '@aws-sdk/lib-dynamodb';
-import type { CustomUpdateCommandInput } from '../../types';
-import { extractExpAttributeNamesFromUpdateExp, replaceReservedKeywordsFromUpdateExp } from '../../utils';
+import type { CustomUpdateCommandInput } from '../types';
+import { extractExpAttributeNamesFromUpdateExp, replaceReservedKeywordsFromUpdateExp } from '../utils';
 
 /**
  * Builds a DynamoDB {@link UpdateCommandInput} from a higher-level input shape.
