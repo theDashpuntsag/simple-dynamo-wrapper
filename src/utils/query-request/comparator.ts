@@ -21,8 +21,8 @@ export function createKeyConditionExpression(queryRequest: DynamoQueryRequest): 
   const { sKey, skValue2, skComparator } = queryRequest;
   let keyConditionExpression = '#pk = :pk';
 
-  // If there is no sort key, return the partition key condition only
-  if (!sKey) return keyConditionExpression;
+  // If there is no sort key condition, return the partition key condition only
+  if (!sKey && !skValue2) return keyConditionExpression;
 
   switch (getOperatorSymbolByKey(skComparator ?? '=')) {
     case '<':
@@ -38,7 +38,7 @@ export function createKeyConditionExpression(queryRequest: DynamoQueryRequest): 
       keyConditionExpression += ' AND #sk >= :sk';
       break;
     case 'BEGINS_WITH':
-      if (!sKey) throw new Error('BEGINS_WITH operation requires sortKey.');
+      if (!skValue2) throw new Error('BEGINS_WITH operation requires skValue2.');
       keyConditionExpression += ` AND begins_with(#sk, :skValue2)`;
       break;
     case 'BETWEEN':

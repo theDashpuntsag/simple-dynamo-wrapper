@@ -1,5 +1,5 @@
 {
-  "name": "simple-dynamo-wrapper",
+  "name": "dynamo-command-builder",
   "version": "0.1.0",
   "description": "A simple and intuitive wrapper for AWS DynamoDB operations",
   "main": "./dist/index.js",
@@ -19,6 +19,7 @@
     "format": "prettier --write 'src/**/*.ts'",
     "format:check": "prettier --check 'src/**/*.ts'",
     "test": "vitest",
+    "publish:dry": "sh ./scripts/publish.sh --dry-run",
     "test:watch": "vitest --watch",
     "lint": "eslint src/**/*.ts",
     "lint:fix": "eslint src/**/*.ts --fix",

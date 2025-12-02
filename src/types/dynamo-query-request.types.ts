@@ -13,7 +13,7 @@ export const dynamoQueryRequestSch = z
     skComparator: z.string().optional(),
     indexName: z.string().optional(),
     limit: z.number().optional(),
-    lastEvaluatedKey: z.object({}).optional(),
+    lastEvaluatedKey: z.record(z.string(), z.unknown()).optional(),
     sorting: z.string().optional(),
   })
   .superRefine((data, ctx) => {

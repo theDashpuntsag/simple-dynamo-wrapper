@@ -581,7 +581,7 @@ export function replaceReservedKeywordsFromProjection(projection: string): strin
       const trimmed = item.trim();
       if (!trimmed) return trimmed;
 
-      return RESERVED_KEYWORDS_SET.has(trimmed.toLowerCase()) ? `#${trimmed}` : trimmed;
+      return RESERVED_KEYWORDS_SET.has(trimmed.toUpperCase()) ? `#${trimmed}` : trimmed;
     })
     .join(', ');
 }

@@ -54,9 +54,9 @@ export function buildQueryCommandInput(input: CustomQueryCommandInput): QueryCom
     ':pk': parseDynamoKeyValue(queryRequest.pKey, queryRequest.pKeyType),
     ...(queryRequest.sKey && {
       ':sk': parseDynamoKeyValue(queryRequest.sKey, queryRequest.sKeyType ?? `S`),
-      ...(queryRequest.skValue2 && {
-        ':skValue2': parseDynamoKeyValue(queryRequest.skValue2, queryRequest.sKeyType ?? `S`),
-      }),
+    }),
+    ...(queryRequest.skValue2 && {
+      ':skValue2': parseDynamoKeyValue(queryRequest.skValue2, queryRequest.sKeyType ?? `S`),
     }),
     ...(input.extraExpAttributeValues || {}),
   };

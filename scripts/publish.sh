@@ -5,8 +5,8 @@
 echo "🚀 Publishing simple-dynamo-wrapper to npm..."
 
 # Check if we're logged in to npm
-if ! npm whoami > /dev/null 2>&1; then
-    echo "❌ Not logged in to npm. Please run 'npm login' first."
+if ! pnpm whoami > /dev/null 2>&1; then
+    echo "❌ Not logged in to npm. Please run 'pnpm login' first."
     exit 1
 fi
 
@@ -18,19 +18,19 @@ fi
 
 # Install dependencies
 echo "📦 Installing dependencies..."
-npm install
+pnpm install
 
 # Run linting
 echo "🔍 Running linter..."
-npm run lint
-
-# Run tests
-echo "🧪 Running tests..."
-npm test
+pnpm run lint
 
 # Build the project
 echo "🔨 Building project..."
-npm run build
+pnpm run build
+
+# Run tests
+echo "🧪 Running tests..."
+pnpm test
 
 # Check if dist directory was created
 if [ ! -d "dist" ]; then
@@ -42,12 +42,12 @@ echo "✅ All checks passed!"
 
 # Dry run to see what would be published
 echo "📋 Dry run - checking what will be published..."
-npm publish --dry-run
+pnpm publish --dry-run
 
 echo ""
 echo "🎯 Ready to publish!"
 echo "Run the following command to publish to npm:"
-echo "  npm publish"
+echo "  pnpm publish"
 echo ""
 echo "Or for a scoped package:"
-echo "  npm publish --access public"
+echo "  pnpm publish --access public"
