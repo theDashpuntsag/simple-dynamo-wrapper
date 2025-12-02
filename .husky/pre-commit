@@ -1,4 +1,3 @@
-pnpm install
 pnpm run format
 git add .
 pnpm run format:check

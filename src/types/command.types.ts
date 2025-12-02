@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { dynamoQueryRequestSchema } from './dynamo-query-request.types';
+import { dynamoQueryRequestSch } from './dynamo-query-request.types';
 
 const returnConsumedCapacityOptionsSchema = z.enum(['INDEXES', 'TOTAL', 'NONE']);
 const returnItemCollectionMetricsOptionsSchema = z.enum(['SIZE', 'NONE']);
@@ -17,7 +17,7 @@ export type CustomGetCommandInput = z.infer<typeof customGetCommandInputSchema>;
 
 export const customQueryCommandInputSchema = z.object({
   tableName: z.string(),
-  queryRequest: dynamoQueryRequestSchema,
+  queryRequest: dynamoQueryRequestSch,
   keyConditionExpression: z.string().optional(),
   filterExpression: z.string().optional(),
   expressionAttributeNames: z.record(z.string(), z.string()).optional(),

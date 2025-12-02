@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-export const dynamoQueryRequestSchema = z
+export const dynamoQueryRequestSch = z
   .object({
     pKey: z.string(),
     pKeyType: z.string(),
@@ -48,4 +48,4 @@ export const dynamoQueryRequestSchema = z
     }
   });
 
-export type DynamoQueryRequest = z.infer<typeof dynamoQueryRequestSchema>;
+export type DynamoQueryRequest = z.infer<typeof dynamoQueryRequestSch>;
