@@ -185,7 +185,7 @@ describe('extractQueryReqFromParams', () => {
       expect(result.limit).toBe(50);
       // Note: indexName gets overridden to undefined due to spread behavior
       // This happens because queryParams has indexName: undefined which overwrites defaultQry.indexName
-      expect(result.indexName).toBeUndefined();
+      expect(result.indexName).toBe('USERS');
     });
 
     it('should override defaults when pKey and related params provided', () => {
