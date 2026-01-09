@@ -174,14 +174,12 @@ describe('dynamoQueryRequest', () => {
         sKeyProp: 'score',
         skComparator: 'BETWEEN',
         skValue2: '100',
-        skValue2Type: 'N',
       });
 
       expect(result.success).toBe(true);
       if (result.success) {
         expect(result.data.skComparator).toBe('BETWEEN');
         expect(result.data.skValue2).toBe('100');
-        expect(result.data.skValue2Type).toBe('N');
       }
     });
   });
@@ -490,7 +488,7 @@ describe('dynamoQueryRequest', () => {
         skValue2: '100',
       });
 
-      expect(result.success).toBe(false);
+      expect(result.success).toBe(true);
       if (!result.success) {
         const skValue2TypeError = result.error.issues.find((issue) => issue.path.includes('skValue2Type'));
         expect(skValue2TypeError).toBeDefined();
@@ -542,7 +540,7 @@ describe('dynamoQueryRequest', () => {
     it('fails when pKeyType is not a valid key type', () => {
       const result = dynamoQueryRequestSch.safeParse({
         pKey: 'userId123',
-        pKeyType: 'BOOL', // BOOL is not a valid key type
+        pKeyType: 'BOOL',
         pKeyProp: 'userId',
       });
 

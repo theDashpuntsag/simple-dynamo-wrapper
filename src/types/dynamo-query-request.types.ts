@@ -42,7 +42,6 @@ export type DynamoQueryRequest = {
   sKeyProp?: string;
 
   skValue2?: string;
-  skValue2Type?: DynamoKeyAttrType;
 
   skComparator?: DynamoComparator;
   indexName?: string;
@@ -58,14 +57,10 @@ export const dynamoQueryRequestSch: z.ZodType<DynamoQueryRequest> = z
     pKey: qpStringReq,
     pKeyType: dynamoKeyAttrTypeSch,
     pKeyProp: qpStringReq,
-
     sKey: qpStringOpt,
     sKeyType: dynamoKeyAttrTypeSch.optional(),
     sKeyProp: qpStringOpt,
-
     skValue2: qpStringOpt,
-    skValue2Type: dynamoKeyAttrTypeSch.optional(),
-
     skComparator: dynamoComparatorSch.optional(),
     indexName: qpStringOpt,
     limit: z.coerce.number().int().positive().optional(),
@@ -108,15 +103,8 @@ export const dynamoQueryRequestSch: z.ZodType<DynamoQueryRequest> = z
             message: 'skValue2 is required when skComparator is BETWEEN',
           });
         }
-        if (!data.skValue2Type) {
-          ctx.addIssue({
-            path: ['skValue2Type'],
-            code: 'custom',
-            message: 'skValue2Type is required when skComparator is BETWEEN',
-          });
-        }
       } else {
-        if (data.skValue2 || data.skValue2Type) {
+        if (data.skValue2) {
           ctx.addIssue({
             path: ['skValue2'],
             code: 'custom',
@@ -125,7 +113,7 @@ export const dynamoQueryRequestSch: z.ZodType<DynamoQueryRequest> = z
         }
       }
     } else {
-      const anySkStuff = data.sKey || data.sKeyProp || data.sKeyType || data.skValue2 || data.skValue2Type;
+      const anySkStuff = data.sKey || data.sKeyProp || data.sKeyType || data.skValue2;
       if (anySkStuff) {
         ctx.addIssue({
           path: ['skComparator'],
