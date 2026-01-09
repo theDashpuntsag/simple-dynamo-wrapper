@@ -1,6 +1,6 @@
 {
   "name": "dynamo-command-builder",
-  "version": "0.1.2",
+  "version": "0.1.4",
   "description": "A simple and intuitive wrapper for AWS DynamoDB operations",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -13,6 +13,7 @@
     }
   },
   "scripts": {
+    "analyze": "du -sh dist && ls -lh dist/",
     "build": "tsup",
     "dev": "tsup --watch",
     "prepublishOnly": "pnpm run build",
@@ -44,7 +45,10 @@
   },
   "homepage": "https://github.com/theDashpuntsag/simple-dynamo-wrapper#readme",
   "files": [
-    "dist",
+    "dist/**/*.js",
+    "dist/**/*.mjs",
+    "dist/**/*.d.ts",
+    "!dist/**/*.map",
     "README.md",
     "LICENSE"
   ],
