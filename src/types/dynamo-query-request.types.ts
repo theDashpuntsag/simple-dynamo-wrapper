@@ -40,15 +40,12 @@ export type DynamoQueryRequest = {
   sKey?: string;
   sKeyType?: DynamoKeyAttrType;
   sKeyProp?: string;
-
   skValue2?: string;
-
   skComparator?: DynamoComparator;
-  indexName?: string;
 
+  indexName?: string;
   limit?: number;
   lastEvaluatedKey?: Record<string, unknown>;
-
   sorting?: 'ASC' | 'DESC';
 };
 
