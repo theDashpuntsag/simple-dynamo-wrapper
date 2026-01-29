@@ -1,9 +1,10 @@
 import { describe, it, expect } from 'vitest';
 import { buildQueryCommandInput } from '../src/command';
+import { CustomQueryCommandInput } from '../src/types';
 
 describe('buildQueryCommandInput', () => {
   it('should build query with partition key only', () => {
-    const input = {
+    const input: CustomQueryCommandInput = {
       tableName: 'Users',
       queryRequest: {
         pKey: 'user-123',
@@ -21,7 +22,7 @@ describe('buildQueryCommandInput', () => {
   });
 
   it('should build query with partition and sort key (equals)', () => {
-    const input = {
+    const input: CustomQueryCommandInput = {
       tableName: 'Orders',
       queryRequest: {
         pKey: 'customer-123',
@@ -47,7 +48,7 @@ describe('buildQueryCommandInput', () => {
   });
 
   it('should build query with sort key comparator (greater than)', () => {
-    const input = {
+    const input: CustomQueryCommandInput = {
       tableName: 'Logs',
       queryRequest: {
         pKey: 'app-logs',
@@ -66,7 +67,7 @@ describe('buildQueryCommandInput', () => {
   });
 
   it('should build query with BETWEEN comparator', () => {
-    const input = {
+    const input: CustomQueryCommandInput = {
       tableName: 'Events',
       queryRequest: {
         pKey: 'event-type-1',
@@ -87,7 +88,7 @@ describe('buildQueryCommandInput', () => {
   });
 
   it('should build query with BEGINS_WITH comparator', () => {
-    const input = {
+    const input: CustomQueryCommandInput = {
       tableName: 'Files',
       queryRequest: {
         pKey: 'folder-1',
@@ -111,7 +112,7 @@ describe('buildQueryCommandInput', () => {
   });
 
   it('should include projection expression', () => {
-    const input = {
+    const input: CustomQueryCommandInput = {
       tableName: 'Users',
       queryRequest: {
         pKey: 'user-123',
@@ -132,7 +133,7 @@ describe('buildQueryCommandInput', () => {
   });
 
   it('should include filter expression', () => {
-    const input = {
+    const input: CustomQueryCommandInput = {
       tableName: 'Users',
       queryRequest: {
         pKey: 'user-123',
@@ -152,7 +153,7 @@ describe('buildQueryCommandInput', () => {
   });
 
   it('should support pagination with lastEvaluatedKey', () => {
-    const input = {
+    const input: CustomQueryCommandInput = {
       tableName: 'Users',
       queryRequest: {
         pKey: 'user-123',
@@ -169,8 +170,23 @@ describe('buildQueryCommandInput', () => {
     expect(result.Limit).toBe(20);
   });
 
+  it(`should not set ExclusiveStartKey when lastEvaluatedKey is empty`, () => {
+    const input: CustomQueryCommandInput = {
+      tableName: 'Users',
+      queryRequest: {
+        pKey: 'user-123',
+        pKeyType: 'S',
+        pKeyProp: 'userId',
+        lastEvaluatedKey: {},
+      },
+    };
+
+    const result = buildQueryCommandInput(input);
+    expect(result.ExclusiveStartKey).toBeUndefined();
+  });
+
   it('should support sorting with ScanIndexForward', () => {
-    const input = {
+    const input: CustomQueryCommandInput = {
       tableName: 'Users',
       queryRequest: {
         pKey: 'user-123',
@@ -186,7 +202,7 @@ describe('buildQueryCommandInput', () => {
   });
 
   it('should use index name when provided', () => {
-    const input = {
+    const input: CustomQueryCommandInput = {
       tableName: 'Users',
       queryRequest: {
         pKey: 'active',
@@ -202,7 +218,7 @@ describe('buildQueryCommandInput', () => {
   });
 
   it('should parse numeric partition key', () => {
-    const input = {
+    const input: CustomQueryCommandInput = {
       tableName: 'Orders',
       queryRequest: {
         pKey: '12345',

@@ -61,6 +61,12 @@ export function buildQueryCommandInput(input: CustomQueryCommandInput): QueryCom
     ...(input.extraExpAttributeValues || {}),
   };
 
+  const ExclusiveStartKey = input.queryRequest.lastEvaluatedKey
+    ? Object.keys(input.queryRequest.lastEvaluatedKey).length > 0
+      ? input.queryRequest.lastEvaluatedKey
+      : undefined
+    : undefined;
+
   const commandInput: QueryCommandInput = {
     TableName: input.tableName,
     IndexName: queryRequest.indexName,
@@ -72,7 +78,7 @@ export function buildQueryCommandInput(input: CustomQueryCommandInput): QueryCom
     ScanIndexForward:
       queryRequest.sorting !== undefined ? queryRequest.sorting.toUpperCase() === 'ASC' : input.scanIndexForward,
     ReturnConsumedCapacity: input.returnConsumedCapacity,
-    ExclusiveStartKey: queryRequest.lastEvaluatedKey,
+    ExclusiveStartKey,
     Limit: queryRequest.limit,
   };
 
