@@ -1,6 +1,6 @@
 {
   "name": "dynamo-command-builder",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "A dynamo command builder wrapper for AWS DynamoDB SDK v3, written in TypeScript.",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",

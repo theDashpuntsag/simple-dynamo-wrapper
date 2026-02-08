@@ -45,7 +45,7 @@ export type DynamoQueryRequest = {
 
   indexName?: string;
   limit?: number;
-  lastEvaluatedKey?: Record<string, unknown>;
+  lastEvaluatedKey?: Record<string, unknown> | undefined;
   sorting?: 'ASC' | 'DESC';
 };
 
@@ -120,3 +120,5 @@ export const dynamoQueryRequestSch: z.ZodType<DynamoQueryRequest> = z
       }
     }
   });
+
+export type DynamoQueryReq = z.infer<typeof dynamoQueryRequestSch>;
